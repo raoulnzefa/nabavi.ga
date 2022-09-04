@@ -1,0 +1,23 @@
+on:
+  # Trigger analysis when pushing in master or pull requests, and when creating
+  # a pull request.
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+name: Sonarqube
+jobs:
+  sonarqube:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          # Disabling shallow clone is recommended for improving relevancy of reporting
+          fetch-depth: 0
+      - name: SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ec368708a4851df793b051970833c2e9c59e7e8d
+          SONAR_HOST_URL: https://fae5-2a02-908-1514-d9c0-59df-5665-f511-b83.eu.ngrok.io/
